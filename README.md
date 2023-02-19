@@ -1,6 +1,6 @@
 ## Description
 
-Implementation of a tagging system in backend (In progress)
+Implementation of a resource tagging system. Respective services will be hosted in K8S clusters. (In progress)
 
 ## Installation
 
