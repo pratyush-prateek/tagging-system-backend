@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common/decorators/core/injectable.decorator';
+import { Injectable } from '@nestjs/common';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
-import { Mapper, MappingProfile, createMap, forMember } from '@automapper/core';
+import { Mapper, MappingProfile, createMap } from '@automapper/core';
 import { TagRequestDto } from '../models/tag-request.dto';
-import { TagRequest } from '../../service-layer/schemas/tag-request.schema';
+import { TagRequest } from '@app/common';
 
 @Injectable()
 export class TagRequestProfile extends AutomapperProfile {

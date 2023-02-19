@@ -1,15 +1,9 @@
+import { TagRequest } from '@app/common';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
-import {
-  Body,
-  Controller,
-  Post,
-  Get,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Post, Inject } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
-import { TagRequest } from '../../service-layer/schemas/tag-request.schema';
+import { ITagRequestService } from '../../service-layer/interfaces/ITagRequestService';
 import { TAG_REQUEST_ROUTE } from '../../tag-request.const';
 import { TagRequestDto } from '../models/tag-request.dto';
 
@@ -17,19 +11,31 @@ import { TagRequestDto } from '../models/tag-request.dto';
 export class TagRequestController {
   private readonly logger: Logger;
   private readonly mapper: Mapper;
-  constructor(@InjectMapper() mapper: Mapper) {
+  private readonly tagRequestService: ITagRequestService;
+  constructor(
+    @InjectMapper() mapper: Mapper,
+    @Inject(ITagRequestService) tagRequestService: ITagRequestService,
+  ) {
     this.logger = new Logger(TagRequestController.name);
     this.mapper = mapper;
+    this.tagRequestService = tagRequestService;
   }
 
   @Post()
-  @UsePipes(ValidationPipe)
-  async addTagToItem(@Body() tagRequest: TagRequestDto): Promise<string> {
+  async addTagToItem(@Body() tagRequestDto: TagRequestDto): Promise<string> {
+    const serviceObj = this.mapper.map(
+      tagRequestDto,
+      TagRequestDto,
+      TagRequest,
+    );
+    await this.tagRequestService.addTagToItem(serviceObj);
     return 'Added tag';
   }
 
-  @Get()
-  async testGet(): Promise<string> {
+  @Post()
+  async removeTagFromItem(
+    @Body() tagRequestDto: TagRequestDto,
+  ): Promise<string> {
     return 'Added';
   }
 }

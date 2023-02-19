@@ -1,3 +1,3 @@
-export * from './mongodb/base.repository';
-export * from './mongodb/base.schema';
-export * from './mongodb/mongodb.module';
+export * from './mongodb';
+export * from './schemas';
+export * from './redis';
