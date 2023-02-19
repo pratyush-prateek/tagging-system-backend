@@ -1,7 +1,7 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { RedisService } from './redis.service';
 import * as redisStore from 'cache-manager-redis-store';
+import { RedisClientWrapper } from './redis.client';
 
 @Module({
   imports: [
@@ -10,11 +10,11 @@ import * as redisStore from 'cache-manager-redis-store';
       useFactory: async (configService: ConfigService) => ({
         store: redisStore,
         url: configService.get<string>('REDIS_URI'),
-        ttl: 2000,
+        max: 10000,
       }),
     }),
   ],
-  providers: [RedisService],
-  exports: [RedisService],
+  providers: [RedisClientWrapper],
+  exports: [RedisClientWrapper],
 })
 export class RedisModule {}

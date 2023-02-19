@@ -1,6 +1,7 @@
 import { ITagRequestService } from './interfaces/ITagRequestService';
 import { Logger, Injectable } from '@nestjs/common';
-import { RedisService, TagRequest } from '@app/common';
+import { TagRequest } from '@app/common';
+import { RedisService } from './redis.service';
 
 @Injectable()
 export class TagRequestService implements ITagRequestService {

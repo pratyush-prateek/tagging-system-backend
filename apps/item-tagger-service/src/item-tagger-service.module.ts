@@ -10,6 +10,7 @@ import { classes } from '@automapper/classes';
 import { TagRequestProfile } from './api-layer/model-mappers/tag-request.profile';
 import { TagRequestService } from './service-layer/tag-request.service';
 import { ITagRequestService } from './service-layer/interfaces/ITagRequestService';
+import { RedisService } from './service-layer/redis.service';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { ITagRequestService } from './service-layer/interfaces/ITagRequestServic
       provide: ITagRequestService,
       useClass: TagRequestService,
     },
+    RedisService,
   ],
 })
 export class ItemTaggerServiceModule {}
