@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import * as Joi from 'joi';
-import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule, RedisModule } from '@app/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DatabaseModule, RabbitMQModule, RedisModule } from '@app/common';
 import { TagRequest, TagRequestSchema } from '@app/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TagRequestController } from './api-layer/controllers/tag-request.controller';
@@ -11,6 +11,7 @@ import { TagRequestProfile } from './api-layer/model-mappers/tag-request.profile
 import { TagRequestService } from './service-layer/tag-request.service';
 import { ITagRequestService } from './service-layer/interfaces/ITagRequestService';
 import { RedisService } from './service-layer/redis.service';
+import { MessageQueueService } from './service-layer/message-queue.service';
 
 @Module({
   imports: [
@@ -20,6 +21,13 @@ import { RedisService } from './service-layer/redis.service';
         MONGODB_URI: Joi.string().required(),
         REDIS_URI: Joi.string().required(),
         PORT: Joi.number().required(),
+        RABBITMQ_URI: Joi.string().required(),
+        DB_UPDATE_EXCHANGE_NAME: Joi.string().required(),
+        TAG_ADDITION_QUEUE_NAME: Joi.string().required(),
+        TAG_REMOVAL_QUEUE_NAME: Joi.string().required(),
+        TAG_ADDITION_QUEUE_ROUTING_KEY: Joi.string().required(),
+        TAG_REMOVAL_QUEUE_ROUTING_KEY: Joi.string().required(),
+        DEFAULT_TAGS_CACHE_KEYS_TTL_SECONDS: Joi.number().required(),
       }),
       envFilePath: './apps/item-tagger-service/.env',
     }),
@@ -34,6 +42,16 @@ import { RedisService } from './service-layer/redis.service';
         schema: TagRequestSchema,
       },
     ]),
+    RabbitMQModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => {
+        return {
+          url: configService.get('RABBITMQ_URI'),
+          minChannels: 1,
+          maxChannels: 3,
+        };
+      },
+      inject: [ConfigService],
+    }),
   ],
   controllers: [TagRequestController],
   providers: [
@@ -43,6 +61,7 @@ import { RedisService } from './service-layer/redis.service';
       useClass: TagRequestService,
     },
     RedisService,
+    MessageQueueService,
   ],
 })
 export class ItemTaggerServiceModule {}

@@ -35,6 +35,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
+    },
+    "item-tag-db-update-consumer": {
+      "type": "application",
+      "root": "apps/item-tag-db-update-consumer",
+      "entryFile": "main",
+      "sourceRoot": "apps/item-tag-db-update-consumer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/item-tag-db-update-consumer/tsconfig.app.json"
+      }
     }
   }
 }
