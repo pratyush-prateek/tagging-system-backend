@@ -18,3 +18,8 @@ export enum ExchangeType {
   TOPIC = 'topic',
   FANOUT = 'fanout',
 }
+
+export enum ClientType {
+  PUBLISHER = 'publisher',
+  SUBSCRIBER = 'subsriber',
+}

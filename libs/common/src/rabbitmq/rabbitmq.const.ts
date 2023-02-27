@@ -1,1 +1,3 @@
 export const RABBITMQ_MODULE_OPTIONS = Symbol('RABBITMQ_MODULE_OPTIONS');
+export const CLIENT_TYPE = Symbol('CLIENT_TYPE');
+export const RABBITMQ_CLIENT = Symbol('RABBITMQ_CLIENT');

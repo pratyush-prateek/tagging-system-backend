@@ -8,8 +8,8 @@ import { createPool, Pool, Options } from 'generic-pool';
 import { RabbitMQChannelFactory } from './rabbitmq-channel.factory';
 
 @Injectable()
-export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
-  private readonly logger = new Logger(RabbitMQService.name);
+export class RabbitMQPublisherService implements OnModuleInit, OnModuleDestroy {
+  private readonly logger = new Logger(RabbitMQPublisherService.name);
   private channelPool: Pool<Channel>;
   private readonly rabbitMqConfig: RabbitMQModuleConfig;
   private readonly rabbitMqChannelFactory: RabbitMQChannelFactory;
@@ -22,6 +22,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
+    this.logger.log('Starting RMQ publisher');
     this.logger.log('Creating RMQ connection pool');
     const channelOptions: Options = {
       min: this.rabbitMqConfig.minChannels ?? 1,
@@ -81,15 +82,20 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
   public async publishMessage(
     exchangeName: string,
     routingKey: string,
+    pattern: string,
     message: any,
   ): Promise<void> {
     const channel = await this.getChannel();
     try {
+      const payload = {
+        pattern: pattern,
+        data: message,
+      };
       // Add a retry mechanism
       await channel.publish(
         exchangeName,
         routingKey,
-        Buffer.from(JSON.stringify(message)),
+        Buffer.from(JSON.stringify(payload)),
       );
     } catch (ex) {
       this.logger.error(ex);

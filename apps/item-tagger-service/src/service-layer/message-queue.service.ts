@@ -1,18 +1,28 @@
-import { ExchangeType, RabbitMQService, TagsActionMessage } from '@app/common';
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import {
+  ExchangeType,
+  RabbitMQPublisherService,
+  TagsActionMessage,
+  TAG_ADDITION_MESSAGE_PATTERN,
+  TAG_REMOVAL_MESSAGE_PATTERN,
+} from '@app/common';
+import { RABBITMQ_CLIENT } from '@app/common/rabbitmq/rabbitmq.const';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VAR_NAMES } from '../tag-request.const';
 
 @Injectable()
 export class MessageQueueService implements OnModuleInit {
   private readonly logger = new Logger(MessageQueueService.name);
-  private readonly rabbitMqService: RabbitMQService;
+  private readonly rabbitMqService: RabbitMQPublisherService;
   private readonly EXCHANGE_NAME: string;
   private readonly TAG_ADDITION_QUEUE_NAME: string;
   private readonly TAG_REMOVAL_QUEUE_NAME: string;
   private readonly TAG_ADDITION_QUEUE_ROUTING_KEY: string;
   private readonly TAG_REMOVAL_QUEUE_ROUTING_KEY: string;
-  constructor(rabbitMqService: RabbitMQService, configService: ConfigService) {
+  constructor(
+    @Inject(RABBITMQ_CLIENT) rabbitMqService: RabbitMQPublisherService,
+    configService: ConfigService,
+  ) {
     this.rabbitMqService = rabbitMqService;
     this.EXCHANGE_NAME = configService.get(
       ENV_VAR_NAMES.DB_UPDATE_EXCHANGE_NAME,
@@ -60,6 +70,7 @@ export class MessageQueueService implements OnModuleInit {
       await this.rabbitMqService.publishMessage(
         this.EXCHANGE_NAME,
         this.TAG_ADDITION_QUEUE_ROUTING_KEY,
+        TAG_ADDITION_MESSAGE_PATTERN,
         message,
       );
     } catch (ex) {
@@ -75,6 +86,7 @@ export class MessageQueueService implements OnModuleInit {
       await this.rabbitMqService.publishMessage(
         this.EXCHANGE_NAME,
         this.TAG_REMOVAL_QUEUE_ROUTING_KEY,
+        TAG_REMOVAL_MESSAGE_PATTERN,
         message,
       );
     } catch (ex) {
