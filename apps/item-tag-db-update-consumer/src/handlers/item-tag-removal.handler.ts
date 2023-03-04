@@ -1,14 +1,16 @@
-import { TagsActionMessage } from '@app/common';
-import { RabbitMQSubscriberService } from '@app/common';
-import { RABBITMQ_CLIENT } from '@app/common';
-import { RabbitMQSubscriberCallback } from '@app/common';
-import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import {
+  RabbitMQSubscriberCallback,
+  RabbitMQSubscriberService,
+  RABBITMQ_CLIENT,
+  TagsActionMessage,
+} from '@app/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VAR_NAMES } from '../../item-tag-db-consumer.const';
 
 @Injectable()
-export class ItemTagAdditionHanlder implements OnModuleInit {
-  private readonly logger = new Logger(ItemTagAdditionHanlder.name);
+export class ItemTagRemovalHandler {
+  private readonly logger = new Logger(ItemTagRemovalHandler.name);
   private readonly rabbitMqSubscriberService: RabbitMQSubscriberService;
   private readonly configService: ConfigService;
   constructor(

@@ -82,20 +82,15 @@ export class RabbitMQPublisherService implements OnModuleInit, OnModuleDestroy {
   public async publishMessage(
     exchangeName: string,
     routingKey: string,
-    pattern: string,
     message: any,
   ): Promise<void> {
     const channel = await this.getChannel();
     try {
-      const payload = {
-        pattern: pattern,
-        data: message,
-      };
       // Add a retry mechanism
       await channel.publish(
         exchangeName,
         routingKey,
-        Buffer.from(JSON.stringify(payload)),
+        Buffer.from(JSON.stringify(message)),
       );
     } catch (ex) {
       this.logger.error(ex);

@@ -6,7 +6,7 @@ $dockerUserName = "logan3102" #replace with your docker prefix here
 $registryName = $dockerUserName + "/" + $namespaceName
 $dockerfilePaths = @(
     '../../apps/item-retrieval-service/Dockerfile',
-    '../../apps/item-tagger-service/Dockerfile'
+    '../../apps/item-tagger-service/Dockerfile',
 )
 $imageNames = @()
 $serviceNames = @()
@@ -48,7 +48,7 @@ foreach ($path in $dockerfilePaths) {
 Write-Host("Sleeping for 5 seconds ...")
 Start-Sleep -Seconds 5
 
-# ---------------------------------------DEPLOY INFRA ON OKTETO CLOUD---------------------------------------------------
+# ---------------------------------------DEPLOY SERVICES ON OKTETO CLOUD---------------------------------------------------
 # This has been deployed on OKTETO cloud, which can host K8S clusters for free
 # Login to the K8s cluster
 okteto context use https://cloud.okteto.com
@@ -58,7 +58,16 @@ okteto kubeconfig
 for ($i = 0; $i -lt $serviceNames.Count; $i++) {
     try {
         helm dependency build
-        helm install $serviceNames[$i] ../../helm/service-chart --set name=$serviceNames[$i] --set replicaCount=$defaultServiceReplicas --set image.repository=$imageNames[$i] --set image.tag=$imageTag --set container.port=$defaultContainerPort --set container.env.dbConnectionUri=$dbConnectionString --set service.name=$serviceNames[$i] --set service.port=$defaultServicePort --set mongoDbRootPassword="password123" --values values.yaml
+        helm upgrade --install $serviceNames[$i] ../../helm/service-chart `
+        --set name=$serviceNames[$i] `
+        --set replicaCount=$defaultServiceReplicas `
+        --set image.repository=$imageNames[$i] `
+        --set image.tag=$imageTag `
+        --set container.port=$defaultContainerPort `
+        --set container.env.dbConnectionUri=$dbConnectionString `
+        --set service.name=$serviceNames[$i] `
+        --set service.port=$defaultServicePort `
+        --set mongoDbRootPassword="password123"
     }
     catch {
         Write-Host($_) -ForegroundColor Red

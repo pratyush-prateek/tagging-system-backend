@@ -33,7 +33,7 @@ export class RedisClientWrapper implements OnModuleInit {
     expiredChannelSubscriber.subscribe(expiredChannel, (err, name) => {
       if (err) throw err;
       else {
-        this.logger.log(`Subscribed to channel ${name}`);
+        this.logger.log(`Subscribed to redis channel ${name}`);
       }
     });
     expiredChannelSubscriber.on('message', (channel, key) => {
@@ -43,6 +43,7 @@ export class RedisClientWrapper implements OnModuleInit {
         } else {
           // TODO: have a retry mechanism of this action
           this.onExpiryCallback(key, results).catch((err) => {
+            this.logger.error(err);
             this.logger.error(
               `Expiration event failed to execute on expiry of key ${key}`,
             );

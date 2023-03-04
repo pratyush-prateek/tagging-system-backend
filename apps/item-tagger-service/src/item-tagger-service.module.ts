@@ -59,7 +59,7 @@ import { ENV_VAR_NAMES } from './tag-request.const';
         },
         inject: [ConfigService],
       },
-      ClientType.SUBSCRIBER,
+      ClientType.PUBLISHER,
     ),
   ],
   controllers: [TagRequestController],

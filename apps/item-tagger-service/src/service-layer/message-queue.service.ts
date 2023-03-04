@@ -2,8 +2,6 @@ import {
   ExchangeType,
   RabbitMQPublisherService,
   TagsActionMessage,
-  TAG_ADDITION_MESSAGE_PATTERN,
-  TAG_REMOVAL_MESSAGE_PATTERN,
 } from '@app/common';
 import { RABBITMQ_CLIENT } from '@app/common/rabbitmq/rabbitmq.const';
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
@@ -70,7 +68,6 @@ export class MessageQueueService implements OnModuleInit {
       await this.rabbitMqService.publishMessage(
         this.EXCHANGE_NAME,
         this.TAG_ADDITION_QUEUE_ROUTING_KEY,
-        TAG_ADDITION_MESSAGE_PATTERN,
         message,
       );
     } catch (ex) {
@@ -86,7 +83,6 @@ export class MessageQueueService implements OnModuleInit {
       await this.rabbitMqService.publishMessage(
         this.EXCHANGE_NAME,
         this.TAG_REMOVAL_QUEUE_ROUTING_KEY,
-        TAG_REMOVAL_MESSAGE_PATTERN,
         message,
       );
     } catch (ex) {

@@ -1,6 +1,10 @@
+import { ClientType, RabbitMQModule } from '@app/common';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
+import { ENV_VAR_NAMES } from '../item-tag-db-consumer.const';
+import { ItemTagAdditionHanlder } from './handlers/item-tag-addition.handler';
+import { ItemTagRemovalHandler } from './handlers/item-tag-removal.handler';
 
 @Module({
   imports: [
@@ -12,10 +16,22 @@ import * as Joi from 'joi';
         TAG_REMOVAL_QUEUE_NAME: Joi.string().required(),
         TAG_ADDITION_QUEUE_NAME: Joi.string().required(),
       }),
-      envFilePath: './apps/item-tag-db-update-consumer/.env',
     }),
+    RabbitMQModule.forRootAsync(
+      {
+        useFactory: async (configService: ConfigService) => {
+          return {
+            url: configService.get(ENV_VAR_NAMES.RABBITMQ_URI),
+            minChannels: 1,
+            maxChannels: 5,
+          };
+        },
+        inject: [ConfigService],
+      },
+      ClientType.SUBSCRIBER,
+    ),
   ],
   controllers: [],
-  providers: [],
+  providers: [ItemTagAdditionHanlder, ItemTagRemovalHandler],
 })
 export class ItemTagDbUpdateConsumerModule {}
