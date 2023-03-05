@@ -1,9 +1,9 @@
-import { BaseRepository } from '@app/common';
+import { BaseRepository } from './base.repository';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
-import { TagRequest } from '../../../../libs/common/src/schemas/tag-request.schema';
-import { ITagRequestRepository } from '../../../item-tagger-service/src/data-access/interfaces/ITagRequestRepository';
+import { TagRequest } from '../schemas';
+import { ITagRequestRepository } from './interfaces/tag-request.repository.interface';
 
 @Injectable()
 export class TagRequestRepository
@@ -11,7 +11,6 @@ export class TagRequestRepository
   implements ITagRequestRepository
 {
   protected readonly logger = new Logger(TagRequestRepository.name);
-
   constructor(
     @InjectModel(TagRequest.name) tagRequestModel: Model<TagRequest>,
     @InjectConnection() connection: Connection,

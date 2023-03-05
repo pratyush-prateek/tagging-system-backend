@@ -20,9 +20,7 @@ export class TagRequestService implements ITagRequestService {
   async addTagToItem(tagRequest: TagRequest): Promise<void> {
     const queueMessage: TagsActionMessage = {
       action: TagAction.ADD,
-      itemUrl: tagRequest.itemUrl,
-      itemType: tagRequest.itemType,
-      itemTag: tagRequest.itemTag,
+      payload: tagRequest,
     };
     try {
       // Update the cache
@@ -38,9 +36,7 @@ export class TagRequestService implements ITagRequestService {
   async removeTagFromItem(tagRequest: TagRequest): Promise<void> {
     const queueMessage: TagsActionMessage = {
       action: TagAction.REMOVE,
-      itemUrl: tagRequest.itemUrl,
-      itemType: tagRequest.itemType,
-      itemTag: tagRequest.itemTag,
+      payload: tagRequest,
     };
     try {
       // Update the cache

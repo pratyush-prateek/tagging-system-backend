@@ -1,4 +1,4 @@
-import { BaseDocument } from '@app/common';
+import { BaseDocument } from './base.schema';
 import { AutoMap } from '@automapper/classes';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 

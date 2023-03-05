@@ -7,9 +7,12 @@ import {
   SaveOptions,
   Connection,
 } from 'mongoose';
-import { BaseDocument } from './base.schema';
+import { IBaseRepository } from './interfaces/base.repository.interface';
+import { BaseDocument } from '../schemas/base.schema';
 
-export abstract class BaseRepository<IDocument extends BaseDocument> {
+export abstract class BaseRepository<IDocument extends BaseDocument>
+  implements IBaseRepository<IDocument>
+{
   protected abstract readonly logger: Logger;
 
   constructor(
@@ -71,6 +74,12 @@ export abstract class BaseRepository<IDocument extends BaseDocument> {
 
   async find(filterQuery: FilterQuery<IDocument>) {
     return this.model.find(filterQuery, {}, { lean: true });
+  }
+
+  async findOneAndDelete(
+    filterQuery: FilterQuery<IDocument>,
+  ): Promise<IDocument> {
+    return await this.model.findOneAndDelete(filterQuery);
   }
 
   async startTransaction() {
