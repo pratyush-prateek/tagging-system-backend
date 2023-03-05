@@ -22,20 +22,25 @@ export class TagRequestController {
   }
 
   @Post()
-  async addTagToItem(@Body() tagRequestDto: TagRequestDto): Promise<string> {
+  async addTagToItem(@Body() tagRequestDto: TagRequestDto): Promise<void> {
     const serviceObj = this.mapper.map(
       tagRequestDto,
       TagRequestDto,
       TagRequest,
     );
     await this.tagRequestService.addTagToItem(serviceObj);
-    return 'Added tag';
+    return;
   }
 
   @Post()
-  async removeTagFromItem(
-    @Body() tagRequestDto: TagRequestDto,
-  ): Promise<string> {
-    return 'Added';
+  async removeTagFromItem(@Body() tagRequestDto: TagRequestDto): Promise<void> {
+    const serviceObj = this.mapper.map(
+      tagRequestDto,
+      TagRequestDto,
+      TagRequest,
+    );
+    this.logger.log(serviceObj);
+    await this.tagRequestService.removeTagFromItem(serviceObj);
+    return;
   }
 }
