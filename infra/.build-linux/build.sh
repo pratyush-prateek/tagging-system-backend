@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for key in "${env}"
+for key in "${{env}}"
 do
-    echo "$key = ${env[$key]}"
+    echo "$key = ${{env[$key]}}"
 done
