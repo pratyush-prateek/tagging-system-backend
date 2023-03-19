@@ -5,8 +5,12 @@ Implementation of a resource tagging system. Respective services will be hosted 
 ## Installation
 
 ```bash
-$ npm install
+$ npm ci
 ```
+This installs dependencies from `package-lock.json`. Prefer this instead of doing `npm install`
+
+## Building
+To build a service, run `npm run build --app=<service_name>`
 
 ## Running the app
 
