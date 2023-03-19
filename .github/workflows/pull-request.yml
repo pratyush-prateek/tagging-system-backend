@@ -1,4 +1,4 @@
-name: Pull Request Pipeline
+name: Pull Request Workflow
 
 on:
   pull_request:
@@ -20,9 +20,18 @@ jobs:
       run: npm ci
     - name: Build services
       run: ./infra/.build-linux/build.sh
-    - name: Docker build:item-tagger-service
+    - name: 'Docker build:${{vars.ITEM_TAGGER_SERVICE_NAME}}'
       env:
         IMAGE_NAME: '${{vars.DOCKER_HUB_REPO_NAME}}/${{vars.IMAGE_PREFIX}}${{vars.ITEM_TAGGER_SERVICE_NAME}}:master-latest'
         IMAGE_PATH: 'apps/${{vars.ITEM_TAGGER_SERVICE_NAME}}/Dockerfile'
       run: docker build --progress=plain --no-cache -t $IMAGE_NAME -f $IMAGE_PATH .
-    
+    - name: 'Docker build:${{vars.ITEM_RETRIEVAL_SERVICE_NAME}}'
+      env:
+        IMAGE_NAME: '${{vars.DOCKER_HUB_REPO_NAME}}/${{vars.IMAGE_PREFIX}}${{vars.ITEM_RETRIEVAL_SERVICE_NAME}}:master-latest'
+        IMAGE_PATH: 'apps/${{vars.ITEM_RETRIEVAL_SERVICE_NAME}}/Dockerfile'
+      run: docker build --progress=plain --no-cache -t $IMAGE_NAME -f $IMAGE_PATH .
+    - name: 'Docker build:${{vars.CONSUMER_NAME_ITEM_TAG_DB_UPDATE}}'
+      env:
+        IMAGE_NAME: '${{vars.DOCKER_HUB_REPO_NAME}}/${{vars.IMAGE_PREFIX}}${{vars.CONSUMER_NAME_ITEM_TAG_DB_UPDATE}}:master-latest'
+        IMAGE_PATH: 'apps/${{vars.CONSUMER_NAME_ITEM_TAG_DB_UPDATE}}/Dockerfile'
+      run: docker build --progress=plain --no-cache -t $IMAGE_NAME -f $IMAGE_PATH .

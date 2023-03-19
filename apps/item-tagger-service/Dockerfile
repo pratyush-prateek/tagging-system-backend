@@ -10,7 +10,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 COPY . .
 COPY --from=development /usr/src/app/dist ./apps/item-tagger-service/dist
 CMD ["node", "./apps/item-tagger-service/dist/main"]
