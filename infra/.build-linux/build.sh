@@ -1,6 +1,9 @@
 #!/bin/bash
 
-for key in "${{env}}"
-do
-    echo "$key = ${{env[$key]}}"
-done
+services=(
+    item-tagger-service,
+    item-retrieval-service,
+    item-tag-db-update-consumer
+)
+directory="$ cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd .. && pwd)"
+echo $directory
