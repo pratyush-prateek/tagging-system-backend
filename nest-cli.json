@@ -15,7 +15,8 @@
       "entryFile": "main",
       "sourceRoot": "apps/item-tagger-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/item-tagger-service/tsconfig.app.json"
+        "tsConfigPath": "apps/item-tagger-service/tsconfig.app.json",
+        "webpackConfigPath": "apps/item-tagger-service/webpack.config.js"
       }
     },
     "item-retrieval-service": {
@@ -24,7 +25,8 @@
       "entryFile": "main",
       "sourceRoot": "apps/item-retrieval-service/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/item-retrieval-service/tsconfig.app.json"
+        "tsConfigPath": "apps/item-retrieval-service/tsconfig.app.json",
+        "webpackConfigPath": "apps/item-retrieval-service/webpack.config.js"
       }
     },
     "common": {
@@ -42,7 +44,8 @@
       "entryFile": "main",
       "sourceRoot": "apps/item-tag-db-update-consumer/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/item-tag-db-update-consumer/tsconfig.app.json"
+        "tsConfigPath": "apps/item-tag-db-update-consumer/tsconfig.app.json",
+        "webpackConfigPath": "apps/item-tag-db-update-consumer/webpack.config.js"
       }
     }
   }
