@@ -1,18 +1,16 @@
 FROM node:alpine As development
 WORKDIR /usr/src/app
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install
+COPY package*.json ./
+RUN npm ci
 COPY . .
-RUN npm run build item-retrieval-service
+RUN npm run build --app=item-retrieval-service
 
 FROM node:alpine AS production
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --only=production
+COPY package*.json ./
+RUN npm ci --only=production
 COPY . .
-COPY --from=development /usr/src/app/dist ./dist
-CMD ["node", "dist/apps/item-retrieval-service/main"]
+COPY --from=development /usr/src/app/dist ./apps/item-retrieval-service/dist
+CMD ["node", "./apps/item-retrieval-service/dist/main"]
