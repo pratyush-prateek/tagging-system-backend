@@ -5,5 +5,8 @@ services=(
     item-retrieval-service,
     item-tag-db-update-consumer
 )
-directory="$ cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd .. && pwd)"
-echo $directory
+cd ../..
+for service_name in "${services[@]}"
+do
+    npm run build -app=$service_name
+done
