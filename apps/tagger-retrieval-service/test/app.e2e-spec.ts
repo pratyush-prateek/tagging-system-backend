@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { ItemTaggerServiceModule } from './../src/item-tagger-service.module';
+import { TaggerRetrievalService } from '../src/tagger-retrieval-service.module';
 
 describe('ItemTaggerServiceController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ItemTaggerServiceModule],
+      imports: [TaggerRetrievalService],
     }).compile();
 
     app = moduleFixture.createNestApplication();

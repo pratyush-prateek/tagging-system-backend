@@ -24,7 +24,7 @@ import { ENV_VAR_NAMES } from './tag-request.const';
         TAG_ADDITION_QUEUE_ROUTING_KEY: Joi.string().required(),
         TAG_REMOVAL_QUEUE_ROUTING_KEY: Joi.string().required(),
       }),
-      envFilePath: './apps/item-tagger-service/.env',
+      envFilePath: './apps/tagger-retrieval-service/.env',
     }),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),
@@ -53,4 +53,4 @@ import { ENV_VAR_NAMES } from './tag-request.const';
     MessageQueueService,
   ],
 })
-export class ItemTaggerServiceModule {}
+export class TaggerRetrievalService {}

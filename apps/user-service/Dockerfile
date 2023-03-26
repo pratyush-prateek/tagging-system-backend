@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build --app=item-retrieval-service
+RUN npm run build --app=user-service
 
 FROM node:alpine AS production
 ARG NODE_ENV=production
@@ -12,5 +12,5 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --omit=dev
 COPY . .
-COPY --from=development /usr/src/app/dist ./apps/item-retrieval-service/dist
-CMD ["node", "./apps/item-retrieval-service/dist/main"]
+COPY --from=development /usr/src/app/dist ./apps/user-service/dist
+CMD ["node", "./apps/user-service/dist/main"]

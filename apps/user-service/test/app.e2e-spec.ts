@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { ItemRetrievalServiceModule } from './../src/item-retrieval-service.module';
+import { UserServiceModule } from './../src/user-service.module';
 
 describe('ItemRetrievalServiceController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ItemRetrievalServiceModule],
+      imports: [UserServiceModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

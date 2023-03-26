@@ -1,8 +1,8 @@
 #!/bin/bash
 
 services=(
-    item-tagger-service,
-    item-retrieval-service,
+    tagger-retrieval-service,
+    user-service,
     item-tag-db-update-consumer
 )
 for service_name in "${services[@]}"
