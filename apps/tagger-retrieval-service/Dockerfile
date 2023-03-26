@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build --app=item-tagger-service
+RUN npm run build --app=tagger-retrieval-service
 
 FROM node:alpine as production
 ARG NODE_ENV=production
@@ -12,5 +12,5 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --omit=dev
 COPY . .
-COPY --from=development /usr/src/app/dist ./apps/item-tagger-service/dist
-CMD ["node", "./apps/item-tagger-service/dist/main"]
+COPY --from=development /usr/src/app/dist ./apps/tagger-retrieval-service/dist
+CMD ["node", "./apps/tagger-retrieval-service/dist/main"]
