@@ -25,6 +25,7 @@ import { ENV_VAR_NAMES } from './tag-request.const';
         TAG_REMOVAL_QUEUE_ROUTING_KEY: Joi.string().required(),
       }),
       envFilePath: './apps/tagger-retrieval-service/.env',
+      ignoreEnvFile: process.env.NODE_ENV !== 'dev',
     }),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),

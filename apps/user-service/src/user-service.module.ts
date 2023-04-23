@@ -12,6 +12,7 @@ import { UserController } from './api-layer/controllers/user.controller';
         PORT: Joi.number().required(),
       }),
       envFilePath: './apps/user-service/.env',
+      ignoreEnvFile: process.env.NODE_ENV !== 'dev',
     }),
   ],
   controllers: [UserController, DataSourceController],

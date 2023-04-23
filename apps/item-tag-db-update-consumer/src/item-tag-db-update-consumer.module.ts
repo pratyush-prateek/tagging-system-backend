@@ -20,6 +20,7 @@ import { ItemTagUpdateService } from './service-layer/item-tag-update.service';
         TAG_ADDITION_QUEUE_NAME: Joi.string().required(),
       }),
       envFilePath: './apps/item-tag-db-update-consumer/.env',
+      ignoreEnvFile: process.env.NODE_ENV !== 'dev',
     }),
     RabbitMQModule.forRootAsync(
       {

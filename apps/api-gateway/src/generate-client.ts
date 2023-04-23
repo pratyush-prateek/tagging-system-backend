@@ -1,0 +1,3 @@
+async function clientGen() {}
+
+clientGen();
