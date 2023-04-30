@@ -8,9 +8,11 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
-import { DATA_SOURCES_ROUTE } from '../../user-service.const';
+import { API_TAGS, DATA_SOURCES_ROUTE } from '../../user-service.const';
 import { DataSource } from '../models/data-source.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(API_TAGS.DATA_SOURCE)
 @Controller(DATA_SOURCES_ROUTE)
 export class DataSourceController {
   private readonly logger: Logger;

@@ -47,6 +47,26 @@
         "tsConfigPath": "apps/item-tag-db-update-consumer/tsconfig.app.json",
         "webpackConfigPath": "apps/item-tag-db-update-consumer/webpack.config.js"
       }
+    },
+    "api-gateway": {
+      "type": "application",
+      "root": "apps/api-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-gateway/tsconfig.app.json",
+        "webpackConfigPath": "apps/api-gateway/webpack.config.js"
+      }
+    },
+    "authentication-service": {
+      "type": "application",
+      "root": "apps/authentication-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/authentication-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/authentication-service/tsconfig.app.json",
+        "webpackConfigPath": "apps/authentication-service/webpack.config.js"
+      }
     }
   }
 }

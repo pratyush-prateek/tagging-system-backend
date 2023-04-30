@@ -8,9 +8,11 @@ import {
   Get,
   Delete,
 } from '@nestjs/common';
-import { USERS_ROUTE } from '../../user-service.const';
+import { API_TAGS, USERS_ROUTE } from '../../user-service.const';
 import { UserRequestDto } from '../models/user-request.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(API_TAGS.USER)
 @Controller(USERS_ROUTE)
 export class UserController {
   private readonly logger: Logger;
