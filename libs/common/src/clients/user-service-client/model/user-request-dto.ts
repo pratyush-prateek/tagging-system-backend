@@ -15,4 +15,5 @@ export interface UserRequestDto {
   lastName: string;
   emailId: string;
   password: string;
+  confirmPassword: string;
 }

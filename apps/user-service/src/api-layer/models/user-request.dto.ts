@@ -6,9 +6,12 @@ import {
   IsStrongPassword,
   MaxLength,
   MinLength,
+  Equals,
 } from 'class-validator';
+import { STRINGS } from '../../user-service.const';
 
 export class UserRequestDto {
+  private static passwordPropertyName = 'password';
   @AutoMap()
   @IsNotEmpty()
   @MinLength(2)
@@ -34,4 +37,12 @@ export class UserRequestDto {
   @IsStrongPassword()
   @ApiProperty()
   password: string;
+
+  @AutoMap()
+  @IsNotEmpty()
+  @Equals(UserRequestDto.passwordPropertyName, {
+    message: STRINGS.PASSWORDS_DO_NOT_MATCH,
+  })
+  @ApiProperty()
+  confirmPassword: string;
 }
