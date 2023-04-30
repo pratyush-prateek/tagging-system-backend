@@ -6,8 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "delete-unnecessary-files-client": "rimraf libs/common/src/clients/%npm_config_app%-client/.openapi-generator && rimraf libs/common/src/clients/%npm_config_app%-client/.gitignore && rimraf libs/common/src/clients/%npm_config_app%-client/.openapi-generator-ignore && rimraf libs/common/src/clients/%npm_config_app%-client/git_push.sh",
-    "generate-client": "rimraf libs/common/src/clients/%npm_config_app%-client && cross-env NODE_ENV=dev ts-node apps/%npm_config_app%/src/generate-client.ts %npm_config_app% && eslint \"libs/common/src/clients/%npm_config_app%-client/**/*.ts\" --fix && npm run delete-unnecessary-files-client",
+    "generate-client": "cross-env NODE_ENV=dev ts-node apps/%npm_config_app%/src/generate-client.ts %npm_config_app% %npm_config_client_gen%",
     "build": "rimraf apps/%npm_config_app%/dist && nest build %npm_config_app% && npm run generate-client",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
@@ -35,6 +34,7 @@
     "amqplib": "^0.10.3",
     "cache-manager": "^4.0.0",
     "cache-manager-redis-store": "^2.0.0",
+    "child_process": "^1.0.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cross-env": "^7.0.3",
