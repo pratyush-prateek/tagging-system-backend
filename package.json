@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "generate-client": "cross-env NODE_ENV=dev ts-node apps/%npm_config_app%/src/generate-client.ts %npm_config_app% %npm_config_client_gen%",
-    "build": "rimraf apps/%npm_config_app%/dist && nest build %npm_config_app% && npm run generate-client",
+    "build": "rimraf apps/%npm_config_app%/dist && nest build %npm_config_app%",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "cross-env NODE_ENV=dev nest start %npm_config_app% --watch",
