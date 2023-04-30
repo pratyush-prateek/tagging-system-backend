@@ -8,3 +8,7 @@ export const API_TAGS = {
   DATA_SOURCE: 'DataSource',
   USER: 'User',
 };
+
+export const STRINGS = {
+  PASSWORDS_DO_NOT_MATCH: 'Passwords do not match',
+};

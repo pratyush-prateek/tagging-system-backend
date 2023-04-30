@@ -6,6 +6,7 @@ import {
 } from '@app/common/clients/user-service-client';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import configurationBuilder from './config/config.builder';
 
 @Module({
   imports: [
@@ -18,7 +19,10 @@ import * as Joi from 'joi';
       ignoreEnvFile: process.env.NODE_ENV !== 'dev',
     }),
     UserServiceApiModule.forRoot((): UserServiceClientConfig => {
-      const params: UserServiceClientConfigParams = {};
+      const applicationConfig = configurationBuilder.getApplicationConfig();
+      const params: UserServiceClientConfigParams = {
+        basePath: applicationConfig.userServiceUri,
+      };
       return new UserServiceClientConfig(params);
     }),
   ],

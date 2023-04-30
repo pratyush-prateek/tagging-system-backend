@@ -27,7 +27,9 @@ export class DataSource {
 
   @AutoMap()
   @IsNotEmpty()
-  @IsUrl()
+  @IsUrl({
+    protocols: ['https'],
+  })
   @ApiProperty({
     description: 'Data source URL host',
   })
