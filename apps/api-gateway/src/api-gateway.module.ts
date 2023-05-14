@@ -21,7 +21,7 @@ import configurationBuilder from './config/config.builder';
     UserServiceApiModule.forRoot((): UserServiceClientConfig => {
       const applicationConfig = configurationBuilder.getApplicationConfig();
       const params: UserServiceClientConfigParams = {
-        basePath: applicationConfig.userServiceUri,
+        // basePath: applicationConfig.userServiceUri,
       };
       return new UserServiceClientConfig(params);
     }),

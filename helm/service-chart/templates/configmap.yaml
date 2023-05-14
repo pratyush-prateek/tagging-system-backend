@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}-configmap
+data:
+  config.json: |-
+    {
+{{- range $key, $val := .Values.config }}
+{{ $key | quote | indent 6}}: {{ $val | quote }}
+{{- end}}
+    }
