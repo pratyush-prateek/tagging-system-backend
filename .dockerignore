@@ -16,5 +16,5 @@ node_modules
 README.md
 
 # helm charts and infra
-helm/*
-infra/*
+helm
+infra
