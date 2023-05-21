@@ -3,7 +3,7 @@ import { ApiGatewayModule } from './api-gateway.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VAR_NAMES } from './api-gateway.const';
-import configurationBuilder from './config/config.builder';
+import { configurationBuilder } from './config/config.builder';
 
 async function bootstrap() {
   await configurationBuilder.buildApplicationConfig();

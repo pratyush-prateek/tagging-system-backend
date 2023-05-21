@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { IUserService } from './interfaces/user.service.interface';
-import { UserSchema } from './models/user.schema';
+import { User } from './models/user.schema';
 import { UserResponse } from './models/user-response.model';
 import { PaginatedResponse } from '@app/common';
 
@@ -11,12 +11,12 @@ export class UserService implements IUserService {
   }
 
   public async createOrUpdateUserAsync(
-    userRequest: UserSchema,
+    userRequest: User,
   ): Promise<UserResponse> {
     return null;
   }
 
-  public async updateUserAsync(userRequest: UserSchema): Promise<UserResponse> {
+  public async updateUserAsync(userRequest: User): Promise<UserResponse> {
     return null;
   }
 

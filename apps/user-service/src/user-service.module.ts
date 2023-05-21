@@ -1,19 +1,26 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
 import { DataSourceController } from './api-layer/controllers/data-source.controller';
 import { UserController } from './api-layer/controllers/user.controller';
+import configFactory from './config/config.builder';
+import { DatabaseModule } from '@app/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './service-layer/models/user.schema';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      load: [configFactory],
       isGlobal: true,
-      validationSchema: Joi.object({
-        PORT: Joi.number().required(),
-      }),
-      envFilePath: './apps/user-service/.env',
-      ignoreEnvFile: process.env.NODE_ENV !== 'dev',
+      ignoreEnvFile: true,
     }),
+    DatabaseModule,
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
   ],
   controllers: [UserController, DataSourceController],
   providers: [],

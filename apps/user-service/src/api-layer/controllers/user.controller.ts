@@ -11,6 +11,7 @@ import {
 import { API_TAGS, USERS_ROUTE } from '../../user-service.const';
 import { UserRequestDto } from '../models/user-request.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { User } from '../models/user-response.dto';
 
 @ApiTags(API_TAGS.USER)
 @Controller(USERS_ROUTE)
@@ -24,17 +25,19 @@ export class UserController {
   async createOrUpdateUserAsync(
     @Body() userRequest: UserRequestDto,
     @Param('userId') userId: string,
-  ): Promise<void> {
+  ): Promise<User> {
     this.logger.log(JSON.stringify(userRequest));
+    return null;
   }
 
   @Post(':userId')
   async updateUserAsync(
     @Param('userId') userId: string,
     @Body() userRequst: UserRequestDto,
-  ): Promise<void> {
+  ): Promise<User> {
     this.logger.log(userId);
     this.logger.log(JSON.stringify(userRequst));
+    return null;
   }
 
   @Get()
@@ -43,8 +46,9 @@ export class UserController {
   }
 
   @Get(':userId')
-  async getUserAsync(@Param('userId') userId: string): Promise<void> {
+  async getUserAsync(@Param('userId') userId: string): Promise<User> {
     // This route is accessible by admin only
+    return null;
   }
 
   @Delete('userId')

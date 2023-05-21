@@ -1,36 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ITagRequestRepository, TagRequestRepository } from './repositories';
-import { TagRequest, TagRequestSchema } from './schemas';
+import { ENV_CONSTANTS } from '../constants';
 
 @Module({
   imports: [
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
+        uri: configService.get<string>(ENV_CONSTANTS.DEFAULT_DB_URI_ENV_VAR),
       }),
       inject: [ConfigService],
     }),
-    // Common schemas and repositories can be initialised
-    MongooseModule.forFeature([
-      {
-        name: TagRequest.name,
-        schema: TagRequestSchema,
-      },
-    ]),
-  ],
-  providers: [
-    {
-      provide: ITagRequestRepository,
-      useClass: TagRequestRepository,
-    },
-  ],
-  exports: [
-    {
-      provide: ITagRequestRepository,
-      useClass: TagRequestRepository,
-    },
   ],
 })
 export class DatabaseModule {}

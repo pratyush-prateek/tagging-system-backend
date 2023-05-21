@@ -1,9 +1,9 @@
 import { BaseDocument } from '@app/common';
 import { AutoMap } from '@automapper/classes';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ versionKey: false })
-export class UserSchema extends BaseDocument {
+export class User extends BaseDocument {
   @AutoMap()
   @Prop({ name: 'firstName' })
   firstName: string;
@@ -20,3 +20,5 @@ export class UserSchema extends BaseDocument {
   @Prop({ name: 'password' })
   password: string;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);
