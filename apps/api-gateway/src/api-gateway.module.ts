@@ -5,18 +5,15 @@ import {
   ConfigurationParameters as UserServiceClientConfigParams,
 } from '@app/common/clients/user-service-client';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
-import configurationBuilder from './config/config.builder';
+import { configurationBuilder } from './config/config.builder';
+import configFactory from './config/config.builder';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      load: [configFactory],
       isGlobal: true,
-      validationSchema: Joi.object({
-        PORT: Joi.number().required(),
-      }),
-      envFilePath: './apps/api-gateway/.env',
-      ignoreEnvFile: process.env.NODE_ENV !== 'dev',
+      ignoreEnvFile: true,
     }),
     UserServiceApiModule.forRoot((): UserServiceClientConfig => {
       const applicationConfig = configurationBuilder.getApplicationConfig();

@@ -50,31 +50,31 @@ export class DataSourceService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public createOrUpdateDataSourceUnderUser(
+  public dataSourceControllerCreateOrUpdateDataSourceUnderUser(
     userId: string,
     dataSourceId: string,
     dataSource: DataSource,
   ): Observable<AxiosResponse<any>>;
-  public createOrUpdateDataSourceUnderUser(
+  public dataSourceControllerCreateOrUpdateDataSourceUnderUser(
     userId: string,
     dataSourceId: string,
     dataSource: DataSource,
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling createOrUpdateDataSourceUnderUser.',
+        'Required parameter userId was null or undefined when calling dataSourceControllerCreateOrUpdateDataSourceUnderUser.',
       );
     }
 
     if (dataSourceId === null || dataSourceId === undefined) {
       throw new Error(
-        'Required parameter dataSourceId was null or undefined when calling createOrUpdateDataSourceUnderUser.',
+        'Required parameter dataSourceId was null or undefined when calling dataSourceControllerCreateOrUpdateDataSourceUnderUser.',
       );
     }
 
     if (dataSource === null || dataSource === undefined) {
       throw new Error(
-        'Required parameter dataSource was null or undefined when calling createOrUpdateDataSourceUnderUser.',
+        'Required parameter dataSource was null or undefined when calling dataSourceControllerCreateOrUpdateDataSourceUnderUser.',
       );
     }
 
@@ -114,23 +114,23 @@ export class DataSourceService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public deleteDataSourceUnderUserAsync(
+  public dataSourceControllerDeleteDataSourceUnderUserAsync(
     userId: string,
     dataSourceId: string,
   ): Observable<AxiosResponse<any>>;
-  public deleteDataSourceUnderUserAsync(
+  public dataSourceControllerDeleteDataSourceUnderUserAsync(
     userId: string,
     dataSourceId: string,
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling deleteDataSourceUnderUserAsync.',
+        'Required parameter userId was null or undefined when calling dataSourceControllerDeleteDataSourceUnderUserAsync.',
       );
     }
 
     if (dataSourceId === null || dataSourceId === undefined) {
       throw new Error(
-        'Required parameter dataSourceId was null or undefined when calling deleteDataSourceUnderUserAsync.',
+        'Required parameter dataSourceId was null or undefined when calling dataSourceControllerDeleteDataSourceUnderUserAsync.',
       );
     }
 
@@ -164,23 +164,23 @@ export class DataSourceService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getDataSourceUnderUserAsync(
+  public dataSourceControllerGetDataSourceUnderUserAsync(
     userId: string,
     dataSourceId: string,
   ): Observable<AxiosResponse<any>>;
-  public getDataSourceUnderUserAsync(
+  public dataSourceControllerGetDataSourceUnderUserAsync(
     userId: string,
     dataSourceId: string,
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getDataSourceUnderUserAsync.',
+        'Required parameter userId was null or undefined when calling dataSourceControllerGetDataSourceUnderUserAsync.',
       );
     }
 
     if (dataSourceId === null || dataSourceId === undefined) {
       throw new Error(
-        'Required parameter dataSourceId was null or undefined when calling getDataSourceUnderUserAsync.',
+        'Required parameter dataSourceId was null or undefined when calling dataSourceControllerGetDataSourceUnderUserAsync.',
       );
     }
 
@@ -213,13 +213,15 @@ export class DataSourceService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getDataSourcesUnderUserAsync(
+  public dataSourceControllerGetDataSourcesUnderUserAsync(
     userId: string,
   ): Observable<AxiosResponse<any>>;
-  public getDataSourcesUnderUserAsync(userId: string): Observable<any> {
+  public dataSourceControllerGetDataSourcesUnderUserAsync(
+    userId: string,
+  ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getDataSourcesUnderUserAsync.',
+        'Required parameter userId was null or undefined when calling dataSourceControllerGetDataSourcesUnderUserAsync.',
       );
     }
 
@@ -254,31 +256,31 @@ export class DataSourceService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public updateDataSourceUnderUserAsync(
+  public dataSourceControllerUpdateDataSourceUnderUserAsync(
     userId: string,
     dataSourceId: string,
     dataSource: DataSource,
   ): Observable<AxiosResponse<any>>;
-  public updateDataSourceUnderUserAsync(
+  public dataSourceControllerUpdateDataSourceUnderUserAsync(
     userId: string,
     dataSourceId: string,
     dataSource: DataSource,
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling updateDataSourceUnderUserAsync.',
+        'Required parameter userId was null or undefined when calling dataSourceControllerUpdateDataSourceUnderUserAsync.',
       );
     }
 
     if (dataSourceId === null || dataSourceId === undefined) {
       throw new Error(
-        'Required parameter dataSourceId was null or undefined when calling updateDataSourceUnderUserAsync.',
+        'Required parameter dataSourceId was null or undefined when calling dataSourceControllerUpdateDataSourceUnderUserAsync.',
       );
     }
 
     if (dataSource === null || dataSource === undefined) {
       throw new Error(
-        'Required parameter dataSource was null or undefined when calling updateDataSourceUnderUserAsync.',
+        'Required parameter dataSource was null or undefined when calling dataSourceControllerUpdateDataSourceUnderUserAsync.',
       );
     }
 

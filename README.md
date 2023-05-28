@@ -17,7 +17,8 @@ To run a service, use `npm run start:dev --app=<service_name>`
 
 ## Client generation
 For generating client files, make sure your code changes are done.
-Post that, run `npm run generate-client --app=<service_name>`. Make sure the service has a configuration set for generating clients.
+Run the app once locally, it will generate the swagger doc.
+Post that, run `npm run generate-client --app=<service_name>`.
 
 ## Building service images
 For building a service image, make sure you have docker installed. 
@@ -34,5 +35,7 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
+# Automapper reference taken from - https://automapperts.netlify.app/docs/getting-started/overview
 ```
 

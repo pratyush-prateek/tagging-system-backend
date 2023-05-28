@@ -2,7 +2,13 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@app/common": [
+        "../../libs/common/src"
+      ]
+    }
   },
   "include": [
     "src/**/*"
@@ -11,6 +17,7 @@
     "node_modules",
     "dist",
     "test",
-    "**/*spec.ts"
+    "**/*spec.ts",
+    "**/generate-client.ts"
   ]
 }

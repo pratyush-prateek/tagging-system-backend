@@ -1,3 +1,4 @@
 {
-    "userServiceUri": "http://localhost:3000"
+    "userServiceUri": "http://localhost:3000",
+    "port": 3000
 }

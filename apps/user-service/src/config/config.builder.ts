@@ -1,25 +1,25 @@
 import { ApplicationConfigurationBuilder } from '@app/common';
-import { ApiGatewayConfig } from './api-gateway.config';
+import { UserServiceConfig } from './user-service.config';
 import { plainToInstance } from 'class-transformer';
 import * as Joi from 'joi';
 
-class ApiGatewayConfigurationBuilder extends ApplicationConfigurationBuilder<ApiGatewayConfig> {
+class UserServiceConfigurationBuilder extends ApplicationConfigurationBuilder<UserServiceConfig> {
   public convertPlainToClass(configJson: string): void {
     this.applicationConfiguration = plainToInstance(
-      ApiGatewayConfig,
+      UserServiceConfig,
       configJson,
     );
   }
 
-  public getConfigValidationSchema(): Joi.ObjectSchema<ApiGatewayConfig> {
+  public getConfigValidationSchema(): Joi.AnySchema<UserServiceConfig> {
     return Joi.object({
       port: Joi.number().integer().positive().required(),
-      userServiceUri: Joi.string().uri().required(),
+      dbConnectionUri: Joi.string().uri().required(),
     });
   }
 }
 
-export const configurationBuilder = new ApiGatewayConfigurationBuilder();
+export const configurationBuilder = new UserServiceConfigurationBuilder();
 export default () => {
   return configurationBuilder.getApplicationConfig();
 };

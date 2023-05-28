@@ -1,21 +1,48 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
 import { DataSourceController } from './api-layer/controllers/data-source.controller';
 import { UserController } from './api-layer/controllers/user.controller';
+import configFactory from './config/config.builder';
+import { DatabaseModule } from '@app/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './service-layer/models/user.schema';
+import { UserRepository } from './data-access/user.repository';
+import { UserService } from './service-layer/user.service';
+import { IUserRepository } from './data-access/interfaces/user.repository.interface';
+import { IUserService } from './service-layer/interfaces/user.service.interface';
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
+import { UserProfile } from './api-layer/model-mappers/user.profile';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      load: [configFactory],
       isGlobal: true,
-      validationSchema: Joi.object({
-        PORT: Joi.number().required(),
-      }),
-      envFilePath: './apps/user-service/.env',
-      ignoreEnvFile: process.env.NODE_ENV !== 'dev',
+      ignoreEnvFile: true,
+    }),
+    DatabaseModule,
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
+    AutomapperModule.forRoot({
+      strategyInitializer: classes(),
     }),
   ],
   controllers: [UserController, DataSourceController],
-  providers: [],
+  providers: [
+    {
+      provide: IUserRepository,
+      useClass: UserRepository,
+    },
+    {
+      provide: IUserService,
+      useClass: UserService,
+    },
+    UserProfile,
+  ],
 })
 export class UserServiceModule {}
