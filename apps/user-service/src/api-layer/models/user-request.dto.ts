@@ -9,9 +9,15 @@ import {
   Equals,
 } from 'class-validator';
 import { STRINGS } from '../../user-service.const';
+import { Match } from '@app/common';
 
 export class UserRequestDto {
   private static passwordPropertyName = 'password';
+  @AutoMap()
+  @AutoMap()
+  @ApiProperty()
+  userId: string;
+
   @AutoMap()
   @IsNotEmpty()
   @MinLength(2)
@@ -40,7 +46,7 @@ export class UserRequestDto {
 
   @AutoMap()
   @IsNotEmpty()
-  @Equals(UserRequestDto.passwordPropertyName, {
+  @Match(UserRequestDto.passwordPropertyName, {
     message: STRINGS.PASSWORDS_DO_NOT_MATCH,
   })
   @ApiProperty()

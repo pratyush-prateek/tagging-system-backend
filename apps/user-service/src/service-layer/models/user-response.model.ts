@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 
 export class UserResponse {
   @AutoMap()
-  id: string;
+  userId: string;
 
   @AutoMap()
   firstName: string;
@@ -20,5 +20,5 @@ export class UserResponse {
   modified: Date;
 
   @AutoMap()
-  verified: Date;
+  verified: boolean;
 }

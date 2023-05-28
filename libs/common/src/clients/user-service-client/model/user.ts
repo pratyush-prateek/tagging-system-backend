@@ -10,11 +10,12 @@
  * Do not edit the class manually.
  */
 
-export interface UserRequestDto {
+export interface User {
   userId: string;
   firstName: string;
   lastName: string;
   emailId: string;
-  password: string;
-  confirmPassword: string;
+  created: string;
+  modified: string;
+  verified: boolean;
 }

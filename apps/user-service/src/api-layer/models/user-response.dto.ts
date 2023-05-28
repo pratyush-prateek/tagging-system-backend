@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class User {
   @AutoMap()
   @ApiProperty()
-  id: string;
+  userId: string;
 
   @AutoMap()
   @ApiProperty()

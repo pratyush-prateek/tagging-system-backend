@@ -15,6 +15,7 @@ import { Inject, Injectable, Optional } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
+import { User } from '../model/user';
 import { UserRequestDto } from '../model/user-request-dto';
 import { Configuration } from '../configuration';
 
@@ -44,35 +45,26 @@ export class UserService {
   /**
    *
    *
-   * @param userId
    * @param userRequestDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public createOrUpdateUserAsync(
-    userId: string,
+  public userControllerCreateOrUpdateUserAsync(
     userRequestDto: UserRequestDto,
-  ): Observable<AxiosResponse<any>>;
-  public createOrUpdateUserAsync(
-    userId: string,
+  ): Observable<AxiosResponse<User>>;
+  public userControllerCreateOrUpdateUserAsync(
     userRequestDto: UserRequestDto,
   ): Observable<any> {
-    if (userId === null || userId === undefined) {
-      throw new Error(
-        'Required parameter userId was null or undefined when calling createOrUpdateUserAsync.',
-      );
-    }
-
     if (userRequestDto === null || userRequestDto === undefined) {
       throw new Error(
-        'Required parameter userRequestDto was null or undefined when calling createOrUpdateUserAsync.',
+        'Required parameter userRequestDto was null or undefined when calling userControllerCreateOrUpdateUserAsync.',
       );
     }
 
     const headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = [];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
@@ -86,8 +78,8 @@ export class UserService {
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.patch<any>(
-      `${this.basePath}/api/users/${encodeURIComponent(String(userId))}`,
+    return this.httpClient.patch<User>(
+      `${this.basePath}/api/users`,
       userRequestDto,
       {
         withCredentials: this.configuration.withCredentials,
@@ -102,11 +94,13 @@ export class UserService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public deleteUserAsync(userId: string): Observable<AxiosResponse<any>>;
-  public deleteUserAsync(userId: string): Observable<any> {
+  public userControllerDeleteUserAsync(
+    userId: string,
+  ): Observable<AxiosResponse<any>>;
+  public userControllerDeleteUserAsync(userId: string): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling deleteUserAsync.',
+        'Required parameter userId was null or undefined when calling userControllerDeleteUserAsync.',
       );
     }
 
@@ -122,10 +116,13 @@ export class UserService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.delete<any>(`${this.basePath}/api/users/userId`, {
-      withCredentials: this.configuration.withCredentials,
-      headers: headers,
-    });
+    return this.httpClient.delete<any>(
+      `${this.basePath}/api/users/${encodeURIComponent(String(userId))}`,
+      {
+        withCredentials: this.configuration.withCredentials,
+        headers: headers,
+      },
+    );
   }
   /**
    *
@@ -133,8 +130,8 @@ export class UserService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getAllUsersAsync(): Observable<AxiosResponse<any>>;
-  public getAllUsersAsync(): Observable<any> {
+  public userControllerGetAllUsersAsync(): Observable<AxiosResponse<any>>;
+  public userControllerGetAllUsersAsync(): Observable<any> {
     const headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
@@ -159,18 +156,20 @@ export class UserService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public getUserAsync(userId: string): Observable<AxiosResponse<any>>;
-  public getUserAsync(userId: string): Observable<any> {
+  public userControllerGetUserAsync(
+    userId: string,
+  ): Observable<AxiosResponse<User>>;
+  public userControllerGetUserAsync(userId: string): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling getUserAsync.',
+        'Required parameter userId was null or undefined when calling userControllerGetUserAsync.',
       );
     }
 
     const headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = [];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
@@ -179,7 +178,7 @@ export class UserService {
 
     // to determine the Content-Type header
     const consumes: string[] = [];
-    return this.httpClient.get<any>(
+    return this.httpClient.get<User>(
       `${this.basePath}/api/users/${encodeURIComponent(String(userId))}`,
       {
         withCredentials: this.configuration.withCredentials,
@@ -195,30 +194,30 @@ export class UserService {
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public updateUserAsync(
+  public userControllerUpdateUserAsync(
     userId: string,
     userRequestDto: UserRequestDto,
-  ): Observable<AxiosResponse<any>>;
-  public updateUserAsync(
+  ): Observable<AxiosResponse<User>>;
+  public userControllerUpdateUserAsync(
     userId: string,
     userRequestDto: UserRequestDto,
   ): Observable<any> {
     if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter userId was null or undefined when calling updateUserAsync.',
+        'Required parameter userId was null or undefined when calling userControllerUpdateUserAsync.',
       );
     }
 
     if (userRequestDto === null || userRequestDto === undefined) {
       throw new Error(
-        'Required parameter userRequestDto was null or undefined when calling updateUserAsync.',
+        'Required parameter userRequestDto was null or undefined when calling userControllerUpdateUserAsync.',
       );
     }
 
     const headers = { ...this.defaultHeaders };
 
     // to determine the Accept header
-    const httpHeaderAccepts: string[] = [];
+    const httpHeaderAccepts: string[] = ['application/json'];
     const httpHeaderAcceptSelected: string | undefined =
       this.configuration.selectHeaderAccept(httpHeaderAccepts);
     if (httpHeaderAcceptSelected != undefined) {
@@ -232,7 +231,7 @@ export class UserService {
     if (httpContentTypeSelected != undefined) {
       headers['Content-Type'] = httpContentTypeSelected;
     }
-    return this.httpClient.post<any>(
+    return this.httpClient.post<User>(
       `${this.basePath}/api/users/${encodeURIComponent(String(userId))}`,
       userRequestDto,
       {
